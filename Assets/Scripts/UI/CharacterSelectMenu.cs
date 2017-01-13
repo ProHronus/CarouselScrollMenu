@@ -245,11 +245,13 @@ public class CharacterSelectMenu : MonoBehaviour
 
 						if (Mathf.Abs (toMove) > ADJACENTDISTANCE)
 							toMove %= ADJACENTDISTANCE;
+							
+						Parent.localPosition = Vector3.Lerp (Parent.localPosition, new Vector3 (Parent.localPosition.x - toMove, Y, Z), Time.deltaTime * 15);
+						selectableCharacterArray [currentItemIndex].localScale = Vector3.Lerp (selectableCharacterArray [currentItemIndex].localScale, DEFAULTSCALE, Time.deltaTime * ROTATIONSPEED);
+
 					}
 
-					Parent.localPosition = Vector3.Lerp (Parent.localPosition, new Vector3 (Parent.localPosition.x - toMove, Y, Z), Time.deltaTime * 15);
-					selectableCharacterArray [currentItemIndex].localScale = Vector3.Lerp (selectableCharacterArray [currentItemIndex].localScale, DEFAULTSCALE, Time.deltaTime * ROTATIONSPEED);
-
+					
 					if ((toMove >= -1 && toMove <= 1) || (Parent.localPosition.x > 0) || (Parent.localPosition.x < -(totalCharacters - 1) * ADJACENTDISTANCE)) {
 						//Round off lerp values
 						if (toMove >= -1 && toMove <= 1)
